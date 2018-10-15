@@ -1,8 +1,9 @@
 package members;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 class Members {
     private final Member[] members;
@@ -12,14 +13,11 @@ class Members {
     }
 
     Participants findParticipantsByFirstName(String query) {
-        final Predicate<Member> predicate = matches(query);
 
-        final List<Participant> participants = new ArrayList<>();
-        for (Member member : members) {
-            if (predicate.test(member)) {
-                participants.add(member.toParticipant());
-            }
-        }
+        final List<Participant> participants = Arrays.stream(members).
+                filter(matches(query))
+                .map(Member::toParticipant)
+                .collect(Collectors.toList());
 
         return Participants.of(participants);
     }
