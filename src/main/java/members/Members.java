@@ -2,6 +2,7 @@ package members;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 class Members {
     private final Member[] members;
@@ -11,16 +12,18 @@ class Members {
     }
 
     Participants findParticipantsByFirstName(String query) {
+        Predicate<Member> predicate = member -> matches(query, member);
+
         final List<Participant> participants = new ArrayList<>();
         for (Member member : members) {
-            addIfMatches(query, member, participants);
+            addIf(predicate, member, participants);
         }
         return Participants.of(participants);
     }
 
     // Side effect
-    private void addIfMatches(String query, Member member, List<Participant> participants) {
-        if (matches(query, member)) {
+    private void addIf(Predicate<Member> predicate, Member member, List<Participant> participants) {
+        if (predicate.test(member)) {
             participants.add(member.toParticipant());
         }
     }
