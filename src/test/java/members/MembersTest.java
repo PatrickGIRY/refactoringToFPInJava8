@@ -44,4 +44,16 @@ class MembersTest {
         assertThat(participants.contains(Participant.withFirstName("Xavier")))
                 .isTrue();
     }
+
+    @Test
+    @DisplayName("Return all matching participants where there are multiple members found with the query")
+    void many_participants() {
+
+        Participants participants = members.findParticipantsByFirstName("Chr");
+
+        assertThat(participants.contains(
+                Participant.withFirstName("Christian"),
+                Participant.withFirstName("Christophe")
+        )).isTrue();
+    }
 }

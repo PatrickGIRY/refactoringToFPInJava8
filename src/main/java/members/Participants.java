@@ -9,16 +9,24 @@ class Participants {
 
     private final List<Participant> participants;
 
-    private Participants(List<Participant> participants) {
-        this.participants = participants;
-    }
-
     static Participants of(List<Participant> participants) {
         return participants.isEmpty() ? NO : new Participants(participants);
     }
 
-    boolean contains(Participant participant) {
-        return participants.contains(participant);
+    private Participants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
+    boolean contains(Participant... participants) {
+        if (participants != null) {
+            for (Participant participant : participants) {
+                if (!this.participants.contains(participant)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
