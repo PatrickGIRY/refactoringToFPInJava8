@@ -13,11 +13,16 @@ class Members {
     Participants findParticipantsByFirstName(String query) {
         final List<Participant> participants = new ArrayList<>();
         for (Member member : members) {
-            if (matches(query, member)) {
-                participants.add(member.toParticipant());
-            }
+            addIfMatches(query, member, participants);
         }
         return Participants.of(participants);
+    }
+
+    // Side effect
+    private void addIfMatches(String query, Member member, List<Participant> participants) {
+        if (matches(query, member)) {
+            participants.add(member.toParticipant());
+        }
     }
 
     private boolean matches(String query, Member member) {
