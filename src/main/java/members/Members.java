@@ -18,16 +18,19 @@ class Members {
         final Consumer<Participant> add = participants::add;
 
         for (Member member : members) {
-            addIf(predicate, member, add);
+            addIf(predicate, member, add).accept(member.toParticipant());
         }
 
         return Participants.of(participants);
     }
 
     // Side effect
-    private void addIf(Predicate<Member> predicate, Member member, Consumer<Participant> add) {
+    private Consumer<Participant> addIf(Predicate<Member> predicate, Member member, Consumer<Participant> add) {
         if (predicate.test(member)) {
-            add.accept(member.toParticipant());
+            return add;
+        } else {
+            return m -> {
+            };
         }
     }
 
