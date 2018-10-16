@@ -21,8 +21,7 @@ class Members {
 
         final List<Participant> participants = new ArrayList<>();
         for (Member member : members) {
-            Consumer<List<Participant>> consumer = addIf(predicate, member, append);
-            consumer.accept(participants);
+            addIf(predicate, member, append).accept(participants);
         }
 
         return Participants.of(participants);
