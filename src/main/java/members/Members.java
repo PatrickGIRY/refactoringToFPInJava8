@@ -20,15 +20,19 @@ class Members {
         final Consumer<Participant> append = participants::add;
 
         for (Member member : members) {
-            addIf(predicate, query, member, append);
+            Consumer<Participant> consumer = addIf(predicate, query, member, append);
+            consumer.accept(member.toParticipant());
         }
 
         return Participants.of(participants);
     }
 
-    private void addIf(BiPredicate<String, Member> predicate, String query, Member member, Consumer<Participant> append) {
+    private Consumer<Participant> addIf(BiPredicate<String, Member> predicate, String query, Member member, Consumer<Participant> append) {
         if (predicate.test(query, member)) {
-            append.accept(member.toParticipant());
+            return append;
+        } else {
+            return participant -> {
+            };
         }
     }
 
