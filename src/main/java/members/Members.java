@@ -16,12 +16,12 @@ class Members {
 
         final List<Participant> participants = new ArrayList<>();
         for (Member member : members) {
-            addIfMatches(predicate, query, member, participants);
+            addIf(predicate, query, member, participants);
         }
         return Participants.of(participants);
     }
 
-    private void addIfMatches(BiPredicate<String, Member> predicate, String query, Member member, List<Participant> participants) {
+    private void addIf(BiPredicate<String, Member> predicate, String query, Member member, List<Participant> participants) {
         if (predicate.test(query, member)) {
             participants.add(member.toParticipant());
         }
