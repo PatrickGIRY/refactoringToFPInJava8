@@ -1,5 +1,6 @@
 package members;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -18,15 +19,7 @@ class Participants {
     }
 
     boolean contains(Participant... participants) {
-        if (participants != null) {
-            for (Participant participant : participants) {
-                if (!this.participants.contains(participant)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
+        return participants != null && Arrays.stream(participants).allMatch(this.participants::contains);
     }
 
     @Override
