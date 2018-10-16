@@ -16,6 +16,12 @@ class Members {
     Participants findParticipantsByFirstName(String query) {
         final Predicate<Member> predicate = matches(query);
 
+        final List<Participant> participants = filter(predicate);
+
+        return Participants.of(participants);
+    }
+
+    private List<Participant> filter(Predicate<Member> predicate) {
         final Function<Participant, Consumer<List<Participant>>> append =
                 participant -> participants -> participants.add(participant);
 
@@ -23,8 +29,7 @@ class Members {
         for (Member member : members) {
             addIf(predicate, member, append).accept(participants);
         }
-
-        return Participants.of(participants);
+        return participants;
     }
 
     private Consumer<List<Participant>> addIf(Predicate<Member> predicate, Member member, Function<Participant, Consumer<List<Participant>>> append) {
