@@ -13,8 +13,8 @@ class Member {
         return new Member(firstName);
     }
 
-    boolean startWith(String query) {
-        return firstName.startsWith(query);
+    boolean contains(String query) {
+        return firstName.contains(query);
     }
 
     Participant toParticipant() {

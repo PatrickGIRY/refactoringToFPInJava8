@@ -13,7 +13,7 @@ class Members {
     Participants findParticipantsByFirstName(String query) {
         final List<Participant> participants = new ArrayList<>();
         for (Member member : members) {
-            if (member.startWith(query)) {
+            if (member.contains(query)) {
                 participants.add(member.toParticipant());
             }
         }

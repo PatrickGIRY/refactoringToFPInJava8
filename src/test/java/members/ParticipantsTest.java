@@ -16,7 +16,7 @@ class ParticipantsTest {
     private static final Participant PAUL = Participant.withFirstName("PAUL");
 
     @Test
-    @DisplayName("not contains participant when there is no participant")
+    @DisplayName("not contain participant when there is no participant")
     void no_participant() {
         Participants participants = Participants.NO;
 
@@ -24,7 +24,7 @@ class ParticipantsTest {
     }
 
     @Test
-    @DisplayName("contains one participant when the participant is in")
+    @DisplayName("contain one participant when the participant is in")
     void one_participant() {
         Participants participants = Participants.of(Collections.singletonList(BOB));
 
@@ -32,7 +32,7 @@ class ParticipantsTest {
     }
 
     @Test
-    @DisplayName("contains all participants when all participants are in")
+    @DisplayName("contain all participants when all participants are in")
     void all_participants() {
         Participants participants = Participants.of(Arrays.asList(MARC, BOB));
 

@@ -27,7 +27,7 @@ class MembersTest {
     }
 
     @Test
-    @DisplayName("Return no participant where there is no member found with the query")
+    @DisplayName("return no participant where there is no member found with the query")
     void no_participant() {
 
         Participants participants = members.findParticipantsByFirstName("Paul");
@@ -36,7 +36,7 @@ class MembersTest {
     }
 
     @Test
-    @DisplayName("Return one participant when there is a member found with the query")
+    @DisplayName("return one participant when there is a member found with the query")
     void one_participant() {
 
         Participants participants = members.findParticipantsByFirstName("Xavier");
@@ -46,10 +46,10 @@ class MembersTest {
     }
 
     @Test
-    @DisplayName("Return all matching participants where there are multiple members found with the query")
+    @DisplayName("return all matching participants where there are multiple members found with the query")
     void many_participants() {
 
-        Participants participants = members.findParticipantsByFirstName("Chr");
+        Participants participants = members.findParticipantsByFirstName("hri");
 
         assertThat(participants.contains(
                 Participant.withFirstName("Christian"),
