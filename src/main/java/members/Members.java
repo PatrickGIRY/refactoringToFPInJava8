@@ -2,8 +2,8 @@ package members;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
 
 class Members {
     private final Member[] members;
@@ -15,23 +15,22 @@ class Members {
     Participants findParticipantsByFirstName(String query) {
         final BiPredicate<String, Member> predicate = this::matches;
 
+        final BiConsumer<Participant, List<Participant>> append = (participant, participants) -> participants.add(participant);
+
         final List<Participant> participants = new ArrayList<>();
-
-        final Consumer<Participant> append = participants::add;
-
         for (Member member : members) {
-            Consumer<Participant> consumer = addIf(predicate, query, member, append);
-            consumer.accept(member.toParticipant());
+            BiConsumer<Participant, List<Participant>> consumer = addIf(predicate, query, member, append);
+            consumer.accept(member.toParticipant(), participants);
         }
 
         return Participants.of(participants);
     }
 
-    private Consumer<Participant> addIf(BiPredicate<String, Member> predicate, String query, Member member, Consumer<Participant> append) {
+    private BiConsumer<Participant, List<Participant>> addIf(BiPredicate<String, Member> predicate, String query, Member member, BiConsumer<Participant, List<Participant>> append) {
         if (predicate.test(query, member)) {
             return append;
         } else {
-            return participant -> {
+            return (participant, participants) -> {
             };
         }
     }
