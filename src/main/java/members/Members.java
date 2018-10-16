@@ -3,6 +3,7 @@ package members;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 
 class Members {
     private final Member[] members;
@@ -15,15 +16,19 @@ class Members {
         final BiPredicate<String, Member> predicate = this::matches;
 
         final List<Participant> participants = new ArrayList<>();
+
+        final Consumer<Participant> append = participants::add;
+
         for (Member member : members) {
-            addIf(predicate, query, member, participants);
+            addIf(predicate, query, member, append);
         }
+
         return Participants.of(participants);
     }
 
-    private void addIf(BiPredicate<String, Member> predicate, String query, Member member, List<Participant> participants) {
+    private void addIf(BiPredicate<String, Member> predicate, String query, Member member, Consumer<Participant> append) {
         if (predicate.test(query, member)) {
-            participants.add(member.toParticipant());
+            append.accept(member.toParticipant());
         }
     }
 
